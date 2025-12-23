@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Переключение режимов</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
+
+    /* Плашка переключения */
+    .device-switcher {
+      background: #f0f0f0;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .device-icon {
+      width: 40px;
+      height: 30px;
+      background: #ddd;
+      border: 2px solid #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      color: #333;
+      transition: all 0.2s;
+    }
+
+    .device-icon:hover {
+      background: #ccc;
+    }
+
+    .device-icon.active {
+      background: #cce5ff;
+      border-color: #007bff;
+    }
+
+    /* Основной контент */
+    .content-wrapper {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      transition: width 0.3s ease;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .card-number {
+      font-size: 36px;
+      font-weight: bold;
+      color: #ffc107;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .learn-more {
+      display: block;
+      margin-top: 15px;
+      color: #007bff;
+      text-decoration: underline;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Режимы */
+    .content-wrapper.pc {
+      width: 100%;
+    }
+
+    .content-wrapper.tablet {
+      width: 768px;
+    }
+
+    .content-wrapper.phone {
+      width: 375px;
+    }
+
+    /* Адаптация под ширину */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        width: 768px !important;
+      }
+      .cards {
+        justify-content: center;
+      }
+      .card {
+        width: calc(50% - 10px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content-wrapper {
+        width: 375px !important;
+      }
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Плашка переключения -->
+  <div class="device-switcher">
+    <div class="device-icon active" onclick="setMode('pc')" id="icon-pc">🖥️</div>
+    <div class="device-icon" onclick="setMode('tablet')" id="icon-tablet">💻</div>
+    <div class="device-icon" onclick="setMode('phone')" id="icon-phone">📱</div>
+  </div>
+
+  <!-- Контент -->
+  <div class="content-wrapper" id="content">
+    <div class="cards">
+      <div class="card">
+        <div class="card-number">01</div>
+        <div class="card-text">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div class="learn-more">LEARN MORE</div>
+      </div>
+
+      <div class="card">
+        <div class="card-number">02</div>
+        <div class="card-text">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div class="learn-more">LEARN MORE</div>
+      </div>
+
+      <div class="card">
+        <div class="card-number">03</div>
+        <div class="card-text">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div class="learn-more">LEARN MORE</div>
+      </div>
+
+      <div class="card">
+        <div class="card-number">04</div>
+        <div class="card-text">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div class="learn-more">LEARN MORE</div>
+      </div>
+
+      <div class="card">
+        <div class="card-number">05</div>
+        <div class="card-text">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div class="learn-more">LEARN MORE</div>
+      </div>
+
+      <div class="card">
+        <div class="card-number">06</div>
+        <div class="card-text">Sample text. Click to select the text box. Click again or double click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+        <div class="learn-more">LEARN MORE</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setMode(mode) {
+      const wrapper = document.getElementById('content');
+      const icons = { pc: 'icon-pc', tablet: 'icon-tablet', phone: 'icon-phone' };
+
+      // Снимаем активный класс со всех иконок
+      for (let id of Object.values(icons)) {
+        document.getElementById(id).classList.remove('active');
+      }
+
+      // Добавляем активный класс нужной иконке
+      document.getElementById(icons[mode]).classList.add('active');
+
+      // Меняем класс контейнера
+      wrapper.className = 'content-wrapper';
+      if (mode !== 'pc') {
+        wrapper.classList.add(mode);
+      }
+    }
+  </script>
+
+</body>
+</html>
